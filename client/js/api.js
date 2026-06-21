@@ -5,7 +5,8 @@
 
 const API_BASE = window.location.hostname === 'localhost'
   ? 'http://localhost:5000/api'
-  : 'https://your-backend.onrender.com/api'; // ← Update this after deploying backend
+  : 'https://your-backend.onrender.com/api'; https://credit-management-djsu.onrender.com
+// ← Update this after deploying backend
 
 // ── Token management ──────────────────────────────────────────
 const token = {
