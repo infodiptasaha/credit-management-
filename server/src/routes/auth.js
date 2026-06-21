@@ -23,8 +23,8 @@ router.post('/login', async (req, res) => {
     user.lastLogin = new Date();
     await user.save({ validateBeforeSave: false });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET || 'CreditMgmt_Super_Secret_JWT_Key_2024_Secure', {
+      expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     });
     res.json({ success: true, token, user });
   } catch (error) {
