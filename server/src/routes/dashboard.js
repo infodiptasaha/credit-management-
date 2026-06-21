@@ -4,7 +4,49 @@ const Customer = require('../models/Customer');
 const CreditEntry = require('../models/CreditEntry');
 const { protect } = require('../middleware/auth');
 
-// GET dashboard stats
+// GET dashboard details (for frontend dashboard.js)
+router.get('/', protect, async (req, res) => {
+  try {
+    const totalCustomers = await Customer.countDocuments({ status: 'active' });
+    const allCustomers = await Customer.find({ status: 'active' });
+    
+    // Calculate total outstanding balance
+    const totalOutstanding = allCustomers.reduce((sum, c) => sum + (c.currentBalance > 0 ? c.currentBalance : 0), 0);
+
+    // Calculate total credit and debit sum
+    const transactions = await CreditEntry.find({ isDeleted: false });
+    const totalCredit = transactions.filter(t => t.type === 'credit').reduce((sum, t) => sum + t.amount, 0);
+    const totalDebit = transactions.filter(t => t.type === 'debit').reduce((sum, t) => sum + t.amount, 0);
+
+    // Get top 5 customers by balance
+    const topCustomers = await Customer.find({ status: 'active', currentBalance: { $gt: 0 } })
+      .sort({ currentBalance: -1 })
+      .limit(5);
+
+    // Get recent 10 transactions
+    const recentTransactions = await CreditEntry.find({ isDeleted: false })
+      .populate('customerId', 'name customerCode')
+      .populate('createdBy', 'name')
+      .sort({ date: -1 })
+      .limit(10);
+
+    res.json({
+      success: true,
+      data: {
+        totalCustomers,
+        totalCredit,
+        totalDebit,
+        totalOutstanding,
+        recentTransactions,
+        topCustomers
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// GET dashboard stats (original compatibility endpoint)
 router.get('/stats', protect, async (req, res) => {
   try {
     const totalCustomers = await Customer.countDocuments({ status: 'active' });
