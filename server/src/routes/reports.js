@@ -6,6 +6,27 @@ const OpeningBalance = require('../models/OpeningBalance');
 const ClosingBalance = require('../models/ClosingBalance');
 const { protect } = require('../middleware/auth');
 
+// GET summary report (for frontend reports.js)
+router.get('/summary', protect, async (req, res) => {
+  try {
+    const { startDate, endDate, customerId } = req.query;
+    const query = { isDeleted: false };
+    if (customerId) query.customerId = customerId;
+    if (startDate || endDate) {
+      query.date = {};
+      if (startDate) query.date.$gte = new Date(startDate);
+      if (endDate) query.date.$lte = new Date(new Date(endDate).setHours(23, 59, 59, 999));
+    }
+    const entries = await CreditEntry.find(query)
+      .populate('customerId', 'name customerCode phone')
+      .populate('createdBy', 'name')
+      .sort({ date: -1 });
+    res.json({ success: true, data: { entries } });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // Customer Credit Summary
 router.get('/credit-summary', protect, async (req, res) => {
   try {
