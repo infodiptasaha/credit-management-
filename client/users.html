@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>User Management — Credit Management System</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="toast-container"></div>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">💳</div><div><div class="logo-text">CreditManager</div><div class="logo-sub">Professional Edition</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="dashboard.html"><span class="nav-icon">📊</span>Dashboard</a>
+      <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span>Customers</a>
+      <a class="nav-item" href="transactions.html"><span class="nav-icon">💰</span>Transactions</a>
+      <div class="nav-section-label">Balances</div>
+      <a class="nav-item" href="opening-balance.html"><span class="nav-icon">🟢</span>Opening Balance</a>
+      <a class="nav-item" href="closing-balance.html"><span class="nav-icon">🔴</span>Closing Balance</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item" href="reports.html"><span class="nav-icon">📈</span>Reports</a>
+      <a class="nav-item" href="activity-log.html"><span class="nav-icon">📋</span>Activity Log</a>
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item active" href="users.html"><span class="nav-icon">👤</span>User Management</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info"><div class="user-avatar" id="sidebar-avatar">U</div><div><div class="user-name" id="sidebar-username">User</div><div class="user-role" id="sidebar-role">viewer</div></div></div>
+      <button class="btn-logout" id="btn-logout">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <div class="topbar-title">User Management</div>
+        <div class="topbar-subtitle">Manage system users and roles</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary" id="btn-add-user">+ Add User</button>
+      </div>
+    </header>
+    <div class="page-body">
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Last Login</th><th>Actions</th></tr></thead>
+            <tbody id="users-table"><tr><td colspan="7" style="text-align:center;padding:40px"><div class="spinner" style="margin:auto"></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="user-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="user-modal-title">Add User</div>
+      <button class="modal-close" onclick="closeModal('user-modal')">✕</button>
+    </div>
+    <form id="user-form">
+      <input type="hidden" id="u-edit-id"/>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Full Name *</label><input class="form-control" id="u-name" required/></div>
+        <div class="form-group"><label class="form-label">Username *</label><input class="form-control" id="u-username" required/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email *</label><input class="form-control" id="u-email" type="email" required/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Password <span id="pwd-hint" style="color:var(--text-muted)">(leave blank to keep)</span></label><input class="form-control" id="u-password" type="password" placeholder="Min 6 characters"/></div>
+        <div class="form-group"><label class="form-label">Role</label>
+          <select class="form-control" id="u-role">
+            <option value="viewer">Viewer</option>
+            <option value="operator">Operator</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Status</label>
+        <select class="form-control" id="u-status"><option value="true">Active</option><option value="false">Inactive</option></select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('user-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="u-save-btn">Save User</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="js/api.js"></script>
+<script src="js/users.js"></script>
+</body>
+</html>

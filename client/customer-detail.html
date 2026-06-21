@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Customer Detail — Credit Management System</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="toast-container"></div>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">💳</div>
+      <div><div class="logo-text">CreditManager</div><div class="logo-sub">Professional Edition</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="dashboard.html"><span class="nav-icon">📊</span>Dashboard</a>
+      <a class="nav-item active" href="customers.html"><span class="nav-icon">👥</span>Customers</a>
+      <a class="nav-item" href="transactions.html"><span class="nav-icon">💰</span>Transactions</a>
+      <div class="nav-section-label">Balances</div>
+      <a class="nav-item" href="opening-balance.html"><span class="nav-icon">🟢</span>Opening Balance</a>
+      <a class="nav-item" href="closing-balance.html"><span class="nav-icon">🔴</span>Closing Balance</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item" href="reports.html"><span class="nav-icon">📈</span>Reports</a>
+      <a class="nav-item" href="activity-log.html"><span class="nav-icon">📋</span>Activity Log</a>
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="users.html"><span class="nav-icon">👤</span>User Management</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebar-avatar">U</div>
+        <div><div class="user-name" id="sidebar-username">User</div><div class="user-role" id="sidebar-role">viewer</div></div>
+      </div>
+      <button class="btn-logout" id="btn-logout">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <a href="customers.html" class="btn btn-sm btn-secondary" style="margin-bottom:4px">← Back</a>
+        <div class="topbar-title" id="detail-title">Customer Detail</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary" id="btn-add-entry">+ Add Transaction</button>
+      </div>
+    </header>
+
+    <div class="page-body">
+      <!-- Customer Info Card -->
+      <div class="card mb-6" id="customer-info-card">
+        <div class="flex-center" style="padding:40px"><div class="spinner"></div></div>
+      </div>
+
+      <!-- Credit History -->
+      <div class="card">
+        <div class="section-header">
+          <h2>💳 Credit History</h2>
+          <div style="display:flex;gap:8px">
+            <input type="date" class="form-control" id="filter-start" style="max-width:150px"/>
+            <input type="date" class="form-control" id="filter-end" style="max-width:150px"/>
+            <button class="btn btn-secondary btn-sm" id="btn-filter">Filter</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Txn #</th><th>Date</th><th>Type</th><th>Amount</th><th>Prev. Balance</th><th>New Balance</th><th>Description</th><th>Actions</th></tr></thead>
+            <tbody id="history-table"><tr><td colspan="8" style="text-align:center;padding:40px"><div class="spinner" style="margin:auto"></div></td></tr></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="history-pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Entry Modal -->
+<div class="modal-overlay" id="entry-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="entry-modal-title">Add Transaction</div>
+      <button class="modal-close" onclick="closeModal('entry-modal')">✕</button>
+    </div>
+    <form id="entry-form">
+      <input type="hidden" id="entry-edit-id"/>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Type *</label>
+          <select class="form-control" id="e-type">
+            <option value="credit">Credit (Give)</option>
+            <option value="debit">Debit (Receive)</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Amount (৳) *</label><input class="form-control" id="e-amount" type="number" min="0.01" step="0.01" required placeholder="0.00"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Date *</label><input class="form-control" id="e-date" type="date" required/></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" id="e-desc" rows="2" placeholder="Optional description"></textarea></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('entry-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="entry-save-btn">Save Entry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/customer-detail.js"></script>
+</body>
+</html>

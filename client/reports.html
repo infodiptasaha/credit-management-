@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Reports — Credit Management System</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="toast-container"></div>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">💳</div><div><div class="logo-text">CreditManager</div><div class="logo-sub">Professional Edition</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="dashboard.html"><span class="nav-icon">📊</span>Dashboard</a>
+      <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span>Customers</a>
+      <a class="nav-item" href="transactions.html"><span class="nav-icon">💰</span>Transactions</a>
+      <div class="nav-section-label">Balances</div>
+      <a class="nav-item" href="opening-balance.html"><span class="nav-icon">🟢</span>Opening Balance</a>
+      <a class="nav-item" href="closing-balance.html"><span class="nav-icon">🔴</span>Closing Balance</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item active" href="reports.html"><span class="nav-icon">📈</span>Reports</a>
+      <a class="nav-item" href="activity-log.html"><span class="nav-icon">📋</span>Activity Log</a>
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="users.html"><span class="nav-icon">👤</span>User Management</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info"><div class="user-avatar" id="sidebar-avatar">U</div><div><div class="user-name" id="sidebar-username">User</div><div class="user-role" id="sidebar-role">viewer</div></div></div>
+      <button class="btn-logout" id="btn-logout">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <div class="topbar-title">Reports</div>
+        <div class="topbar-subtitle">Generate financial summaries and export data</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-success" id="btn-export-csv">⬇ Export CSV</button>
+      </div>
+    </header>
+    <div class="page-body">
+      <!-- Filter -->
+      <div class="card mb-6">
+        <div class="card-title">🔎 Report Filters</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Customer</label>
+            <select class="form-control" id="r-customer"><option value="">All Customers</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" type="date" id="r-start"/></div>
+          <div class="form-group"><label class="form-label">End Date</label><input class="form-control" type="date" id="r-end"/></div>
+        </div>
+        <button class="btn btn-primary" id="btn-generate-report">Generate Report</button>
+      </div>
+
+      <!-- Results -->
+      <div id="report-results" style="display:none">
+        <div class="stats-grid" id="report-stats"></div>
+        <div class="card">
+          <div class="card-title">📋 Transaction Details</div>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Customer</th><th>Txn #</th><th>Date</th><th>Type</th><th>Amount</th><th>Balance</th><th>Description</th></tr></thead>
+              <tbody id="report-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/api.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>

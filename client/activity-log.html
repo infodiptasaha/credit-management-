@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Activity Log — Credit Management System</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="toast-container"></div>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">💳</div><div><div class="logo-text">CreditManager</div><div class="logo-sub">Professional Edition</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="dashboard.html"><span class="nav-icon">📊</span>Dashboard</a>
+      <a class="nav-item" href="customers.html"><span class="nav-icon">👥</span>Customers</a>
+      <a class="nav-item" href="transactions.html"><span class="nav-icon">💰</span>Transactions</a>
+      <div class="nav-section-label">Balances</div>
+      <a class="nav-item" href="opening-balance.html"><span class="nav-icon">🟢</span>Opening Balance</a>
+      <a class="nav-item" href="closing-balance.html"><span class="nav-icon">🔴</span>Closing Balance</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item" href="reports.html"><span class="nav-icon">📈</span>Reports</a>
+      <a class="nav-item active" href="activity-log.html"><span class="nav-icon">📋</span>Activity Log</a>
+      <div class="nav-section-label">Admin</div>
+      <a class="nav-item" href="users.html"><span class="nav-icon">👤</span>User Management</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info"><div class="user-avatar" id="sidebar-avatar">U</div><div><div class="user-name" id="sidebar-username">User</div><div class="user-role" id="sidebar-role">viewer</div></div></div>
+      <button class="btn-logout" id="btn-logout">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <div class="topbar-title">Activity Log</div>
+        <div class="topbar-subtitle">Track all system events and user actions</div>
+      </div>
+    </header>
+    <div class="page-body">
+      <div class="card">
+        <div class="filter-bar">
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input class="form-control search-input" id="log-search" type="text" placeholder="Search action or user..."/>
+          </div>
+          <button class="btn btn-secondary" id="btn-refresh">↻ Refresh</button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Time</th><th>User</th><th>Action</th><th>Entity</th><th>Details</th><th>IP</th></tr></thead>
+            <tbody id="log-table"><tr><td colspan="6" style="text-align:center;padding:40px"><div class="spinner" style="margin:auto"></div></td></tr></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="log-pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/api.js"></script>
+<script src="js/activity-log.js"></script>
+</body>
+</html>

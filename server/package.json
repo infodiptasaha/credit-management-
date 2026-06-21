@@ -1,0 +1,35 @@
+{
+  "name": "credit-management-server",
+  "version": "1.0.0",
+  "description": "Credit Management System - Express.js Backend API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node seed.js"
+  },
+  "keywords": [
+    "credit",
+    "management",
+    "express",
+    "mongodb"
+  ],
+  "author": "Remark HB Limited",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.1",
+    "morgan": "^1.11.0",
+    "uuid": "^14.0.0"
+  }
+}
