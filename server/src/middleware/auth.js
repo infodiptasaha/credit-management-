@@ -10,7 +10,7 @@ const protect = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ success: false, message: 'Not authorized. No token provided.' });
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'CreditMgmt_Super_Secret_JWT_Key_2024_Secure');
     const user = await User.findById(decoded.id).select('-password');
     if (!user || !user.isActive) {
       return res.status(401).json({ success: false, message: 'User not found or deactivated.' });
